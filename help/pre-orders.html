@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Orders | Bylink</title>
+<link rel="icon" type="image/png" href="../assets/logo-216.png">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header><div class="wrap">
+<img src="../assets/logo-216.png" alt="">
+<a class="brand" href="../index.html">Bylink</a>
+<nav><a href="../index.html#apps">Apps</a><a href="../help/index.html">Help</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+
+
+<h1>Bylink Pre-Orders for Shopify</h1>
+<p class="lead">Marks products as pre-order in Shopify, with the expected date, from stock and supply in Business Central.</p>
+
+<h2>What it does</h2>
+<p>For each item, the app works out whether it is on pre-order and when it is expected, and writes two product
+metafields (on/off and a date or week number) to every shop where the item is mapped to a product. Your storefront theme
+reads those metafields. An item is on pre-order when its available inventory is at or below the threshold and a receipt is
+expected inside the window. You can also set or clear the status by hand.</p>
+
+<h2>Setup</h2>
+<ol>
+<li>Shopify custom app scope: <code>write_products</code>.</li>
+<li>In Shopify, create two product metafield definitions: a boolean (pre-order active) and a date (pre-order date), or an
+integer if you show week numbers.</li>
+<li>In Business Central, add both to Shopify Metafield Definitions for the shop, owner type Product, Enabled.</li>
+<li>On the Shopify Shop Card, group Pre-Orders, choose <strong>Pre-Order Value</strong> (Date or Week Number) and pick the two keys.
+Changing Pre-Order Value sends every product again in the new format.</li>
+<li>Open <strong>Shopify Pre-Order Setup</strong> and set Inventory Threshold, Window Days, Buffer Days, Max Sync Attempts and an
+optional Location Filter.</li>
+<li>Switch on <strong>PreOrder</strong> in the Feature Flags part. This creates an hourly job queue entry. Keep it On Hold until the
+go-live check passes.</li>
+</ol>
+
+<h2>Manual status</h2>
+<p>On the Item Card, <strong>Set Pre-Order</strong> and <strong>Clear Pre-Order</strong> change the status and send it to Shopify at
+once. A manual status stays until someone clears it; the job does not override it.</p>
+
+<h2>When a push fails</h2>
+<p>The job carries on with the other items. The Pushes page shows Status, Attempt Count and Last Error; <strong>Retry
+Failed</strong> sends failed pushes again at the next run.</p>
+
+<h2>Permissions</h2>
+<p><code>Shpfy Pre-Orders BYL</code> for users of the pages and actions. <code>Shpfy Admin API BYL</code> for whoever sets up
+credentials and metafields.</p>
+
+<h2>Go-live check</h2>
+<p>Map one draft product, set the keys, run Set Pre-Order on its item and check both metafields on the product in Shopify.
+Then clear it and check that the values change.</p>
+
+<h2>Known limits</h2>
+<ul>
+<li>Status is per product, not per variant.</li>
+<li>Drop shipments are not counted as demand.</li>
+<li>Switching the feature off, or unmapping a product, leaves the metafields in Shopify as they were.</li>
+</ul>
+
+</div></main>
+<footer><div class="wrap">Bylink is a product line of Bylov Consulting (Bylov Consulting ApS), <mark class="todo">[street address, postcode, city, Denmark]</mark>. CVR <mark class="todo">[CVR no.]</mark>.
+<a href="../privacy.html">Privacy statement</a> · <a href="../terms.html">License terms</a> · <a href="../support.html">Support</a><br>
+Shopify is a trademark of Shopify Inc. Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Bylink is not affiliated with or endorsed by either.</div></footer>
+</body>
+</html>

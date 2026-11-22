@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Sync | Bylink</title>
+<link rel="icon" type="image/png" href="../assets/logo-216.png">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header><div class="wrap">
+<img src="../assets/logo-216.png" alt="">
+<a class="brand" href="../index.html">Bylink</a>
+<nav><a href="../index.html#apps">Apps</a><a href="../help/index.html">Help</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+
+
+<h1>Bylink Order Sync for Shopify</h1>
+<p class="lead">Keeps Business Central sales orders in step with Shopify when an order is cancelled or edited.</p>
+
+<h2>What it does</h2>
+<ul>
+<li><strong>Order cancellation.</strong> When an imported Shopify order is cancelled and has a sales order, a job queue entry
+checks for blockers. If nothing blocks it, the sales order is deleted. Otherwise the blocker is recorded and reported.</li>
+<li><strong>Order edit sync.</strong> When an edited order is imported again, the app compares it with the version the sales
+order was built from (lines, quantities, prices, shipping address). If something changed, the order is marked Edit
+Pending, and the next run of Sync Orders from Shopify rebuilds the sales order under the same number.</li>
+</ul>
+
+<h2>Setup per shop</h2>
+<ol>
+<li>Shopify custom app scopes: <code>read_orders</code>, <code>write_orders</code>. Admin API credentials set up (see
+<a href="index.html">Getting started</a>).</li>
+<li>Create an order metafield definition in Shopify for the sync status, and the matching row in Shopify Metafield
+Definitions (owner type Order, Enabled).</li>
+<li>Shopify Shop Card, group Order Sync: choose it in <strong>Sync Error Metafield Key</strong>. The card shows a notification
+while reporting is not configured.</li>
+<li>Set <strong>Edit Notify Email</strong> to receive an e-mail for blocked edits. Leave it blank for no e-mail. An e-mail
+account must be set up for the Default scenario.</li>
+<li>Optional: <strong>Address Read Tag</strong>. When set, the shipping address is read again only for orders with that tag.</li>
+<li>Switch on <strong>Shopify Order Cancellation</strong> and <strong>Shopify Order Edit Sync</strong> in the Feature Flags part.</li>
+<li>After switching on edit sync, run <strong>Store Order Edit Baselines</strong> on the Shop Card once, so that open orders
+created earlier are compared from then on.</li>
+<li>Before switching on cancellation, look for orders that are already cancelled in Shopify but still have a sales order.
+They will be cancelled the next time they are imported.</li>
+</ol>
+
+<h2>Blockers</h2>
+<p>A blocked order is not changed. The reason is one sentence.</p>
+<ul>
+<li>Cancellation and rebuild are blocked when any quantity on the sales order is shipped, or a posting number is already assigned.</li>
+<li>An edit of an order that is invoiced or fulfilled is refused.</li>
+</ul>
+<p>You see the blocker on the Shopify Orders list and card (Cancel Blocker, Edit Pending, Edit Blocker), in the order
+metafield in Shopify, and for edits in the notification e-mail. The full Business Central error text stays in Business
+Central; Shopify and the e-mail get a fixed text.</p>
+
+<h2>Failed rebuild</h2>
+<p>The order stays Edit Pending and is tried again at every sync. If the shipping address cannot be read from Shopify, the
+order is held and read again at the next sync; a 401 or 403 from Shopify is logged as an error, so check the credentials.</p>
+
+<h2>Job queue</h2>
+<p>Give the job queue entry for Sync Orders from Shopify and the cancellation entries the same Job Queue Category Code, so
+they do not run at the same time. A user who cannot schedule tasks (for example a delegated admin) leaves the cancellation
+entry On Hold; run <strong>Process Cancellation</strong> from the Shopify Order card instead.</p>
+
+<h2>Permissions</h2>
+<p><code>Shpfy Order Sync BYL</code> for the user who runs the sync and the job queue entries.
+<code>Shpfy Admin API BYL</code> for whoever sets up the shop.</p>
+
+<h2>Go-live check</h2>
+<p>In a sandbox, edit one order in Shopify (address and a quantity), run Sync Orders from Shopify, and check that the sales
+order was rebuilt under the same number. Then cancel one order in Shopify, sync, and check that the sales order is gone.</p>
+
+</div></main>
+<footer><div class="wrap">Bylink is a product line of Bylov Consulting (Bylov Consulting ApS), <mark class="todo">[street address, postcode, city, Denmark]</mark>. CVR <mark class="todo">[CVR no.]</mark>.
+<a href="../privacy.html">Privacy statement</a> · <a href="../terms.html">License terms</a> · <a href="../support.html">Support</a><br>
+Shopify is a trademark of Shopify Inc. Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Bylink is not affiliated with or endorsed by either.</div></footer>
+</body>
+</html>

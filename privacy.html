@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy statement | Bylink</title>
+<link rel="icon" type="image/png" href="assets/logo-216.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header><div class="wrap">
+<img src="assets/logo-216.png" alt="">
+<a class="brand" href="index.html">Bylink</a>
+<nav><a href="index.html#apps">Apps</a><a href="help/index.html">Help</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+<div class="draft"><strong>Draft for review.</strong> Written by an assistant from the app source and documentation. It is not legal advice: have it checked before it is published. Highlighted items need your input.</div>
+
+<h1>Privacy statement</h1>
+<p class="meta">Applies to all Bylink apps for Shopify. Last updated: <mark class="todo">[date of publication]</mark>.</p>
+
+<h2>Who we are</h2>
+<p>Bylov Consulting ApS, <mark class="todo">[street address, postcode, city, Denmark]</mark>, CVR <mark class="todo">[CVR no.]</mark>, publishing as Bylov Consulting ("we", "us"), publishes the Bylink apps for Microsoft Dynamics 365 Business Central.
+For questions about this statement or your personal data, write to <mark class="todo">[privacy e-mail, may be the same as support]</mark>.</p>
+
+<h2>The short version</h2>
+<ul>
+<li>The apps run inside your Business Central environment. The business data they work with (orders, customers, items,
+returns) stays in your Business Central and your Shopify store. We do not receive a copy of it.</li>
+<li>The apps talk to Shopify directly from your Business Central, using credentials you set up. Nothing passes through
+servers of ours.</li>
+<li>The apps send technical usage and error telemetry to us, so that we can support you and fix faults. It is designed to
+contain no names, e-mail addresses or postal addresses.</li>
+<li>When you try or buy an app on AppSource, Microsoft shares your contact details with us as the publisher.</li>
+</ul>
+
+<h2>Data the apps process in your environment</h2>
+<p>When you use the apps, you are the controller of the data in your Business Central and Shopify, and the apps process it on
+your behalf inside your own environment. Depending on which apps you use, this includes:</p>
+<table>
+<tr><th>Data</th><th>Used for</th><th>Where it is stored</th></tr>
+<tr><td>Shopify orders, returns and refunds imported by Microsoft's Shopify Connector, including the customer and
+shipping address details on them</td><td>Cancelling or rebuilding sales orders, creating return orders and credit memos,
+routing orders to a customer</td><td>Your Business Central database</td></tr>
+<tr><td>Items, inventory, sales and purchase lines</td><td>Working out pre-order status and dates</td><td>Your Business Central database</td></tr>
+<tr><td>Shopify API credentials and access tokens</td><td>Calling the Shopify Admin API</td><td>Isolated storage in your Business Central, readable only by the app</td></tr>
+<tr><td>A log of Shopify API calls (request and response)</td><td>Troubleshooting by your administrators</td><td>Your Business Central database, until you delete it</td></tr>
+<tr><td>E-mail addresses you enter for notifications</td><td>Sending order sync notices through your own Business Central e-mail accounts</td><td>Your Business Central database</td></tr>
+</table>
+
+<h2>Data sent to Shopify</h2>
+<p>The apps send data to your Shopify store using your own credentials: status values written as metafields on orders and
+products, refund requests for received returns, and reads of order and address data. This data goes from your Business
+Central to Shopify and is covered by your agreement with Shopify.</p>
+
+<h2>Telemetry we receive</h2>
+<p>The apps send telemetry to an Azure Application Insights resource that we control, hosted by Microsoft in the EU (North
+Europe region). Business Central also sends its standard extension telemetry for our apps to the same resource. It contains:</p>
+<ul>
+<li>your Business Central tenant and environment identifiers, company name and app version;</li>
+<li>event identifiers, timings, counts and outcomes (for example "order routed" or "refund requested");</li>
+<li>Shopify object identifiers such as order, return or product ids, and Business Central document numbers;</li>
+<li>error messages raised while the apps ran.</li>
+</ul>
+<p>The apps are built so that telemetry does not contain names, e-mail addresses, postal addresses, phone numbers or order
+contents. An error message raised by Business Central could, rarely, quote a value from the record it failed on.</p>
+<p><strong>Why:</strong> to support you, find and fix defects, and understand which features are used. Our legal basis is our
+legitimate interest in operating and improving the apps (GDPR Art. 6(1)(f)).<br>
+<strong>How long:</strong> telemetry is deleted after <mark class="todo">[90]</mark> days.<br>
+<strong>Who else:</strong> Microsoft hosts the telemetry as our processor.</p>
+
+<h2>Data we receive from Microsoft AppSource</h2>
+<p>When you install a trial or buy a subscription, Microsoft shares lead and order data with us: your name, company, e-mail
+address, phone number, country and the offer you chose. Microsoft handles billing and payment; we do not receive card or
+bank details. We use this data to administer your subscription, to contact you about your trial or purchase, and to
+provide support. Our legal basis is the performance of the contract with you and our legitimate interest in following up
+on a trial (GDPR Art. 6(1)(b) and (f)). We keep it for as long as you are a customer and for up to <mark class="todo">[3 years]</mark> after,
+and longer where Danish bookkeeping rules require it. Microsoft's handling of this data is described in the
+<a href="https://go.microsoft.com/fwlink/?LinkId=521839">Microsoft Privacy Statement</a>.</p>
+
+<h2>Support</h2>
+<p>If you contact us for support, we process your contact details and what you send us to answer you. If solving the case
+needs access to your Business Central or Shopify, we only get that access when you grant it, and only for that case. Where
+we process personal data on your behalf in that work, we will sign a data processing agreement with you on request.</p>
+
+<h2>Transfers outside the EU</h2>
+<p>We store telemetry and customer records in the EU. Microsoft may process AppSource data outside the EU under its own
+safeguards, as described in its privacy statement.</p>
+
+<h2>Your rights</h2>
+<p>You have the right to access, correct and delete your personal data, to object to processing based on legitimate
+interest, to restrict processing and to data portability. Write to <mark class="todo">[privacy e-mail, may be the same as support]</mark>. If you are not satisfied with our answer,
+you can complain to the Danish Data Protection Agency (Datatilsynet), <a href="https://www.datatilsynet.dk">datatilsynet.dk</a>,
+or to the authority in your own country.</p>
+<p>For data the apps process inside your Business Central and Shopify, you are the controller: requests from your own customers
+are handled with the standard tools in Business Central and Shopify.</p>
+
+<h2>Changes</h2>
+<p>We will update this statement when the apps or our practices change, and change the date at the top.</p>
+
+</div></main>
+<footer><div class="wrap">Bylink is a product line of Bylov Consulting (Bylov Consulting ApS), <mark class="todo">[street address, postcode, city, Denmark]</mark>. CVR <mark class="todo">[CVR no.]</mark>.
+<a href="privacy.html">Privacy statement</a> · <a href="terms.html">License terms</a> · <a href="support.html">Support</a><br>
+Shopify is a trademark of Shopify Inc. Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Bylink is not affiliated with or endorsed by either.</div></footer>
+</body>
+</html>

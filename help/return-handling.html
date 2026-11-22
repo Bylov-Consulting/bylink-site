@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Return Handling | Bylink</title>
+<link rel="icon" type="image/png" href="../assets/logo-216.png">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header><div class="wrap">
+<img src="../assets/logo-216.png" alt="">
+<a class="brand" href="../index.html">Bylink</a>
+<nav><a href="../index.html#apps">Apps</a><a href="../help/index.html">Help</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+
+
+<h1>Bylink Return Handling for Shopify</h1>
+<p class="lead">A customer returns goods. Business Central makes the paperwork and Shopify pays the refund.</p>
+
+<h2>What it does</h2>
+<p>Return opened in Shopify → sales return order in Business Central → goods received (return receipt posted) → Business
+Central asks Shopify to refund the received lines → credit memo in Business Central, posted by finance.</p>
+<p>Each return is a row on the <strong>Shopify Return Pipeline</strong> page in one of these stages: Imported, Order Created,
+Refund Requested, Credit Memo Created, Completed (or Skipped). A row that stops is <strong>Blocked</strong> with a reason, the
+error and a hint. Business Central never sends a refund amount; Shopify computes it from the received lines.</p>
+<p>Refunds without a return go to the Shopify Connector's own Auto Create Credit Memo process.</p>
+
+<h2>Setup</h2>
+<p>Shopify custom app scopes: <code>read_returns</code>, <code>write_returns</code>, plus the order scopes the connector uses.
+On the Shopify Shop Card:</p>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Return and Refund Process</td><td><strong>Return Order BYL</strong>. Any other value and the app does nothing for the shop.</td></tr>
+<tr><td>Default Return Location</td><td>The location that receives returns. Blank blocks every return.</td></tr>
+<tr><td>Return Import From Date</td><td>Your go-live date. Returns on older orders are skipped.</td></tr>
+<tr><td>Return Stale After Days</td><td>Days a row may wait for a refund or credit memo before it is flagged Stalled. 0 means 7.</td></tr>
+<tr><td>Return Refund Difference Account</td><td>G/L account for any difference between Shopify's refund and the value credited. Blank blocks such rows.</td></tr>
+<tr><td>Use Return No. as Document No.</td><td>Gives the return order the Shopify return name as its number.</td></tr>
+</table>
+<p>Before you switch on, make sure there are no unprocessed refunds for the shop.</p>
+
+<h2>Daily work</h2>
+<p>Sync Orders from Shopify must keep running: each run creates return orders, flags stalled rows and turns refunds into
+credit memos. Posting a return receipt asks Shopify for the refund straight away. On the pipeline page:</p>
+<ul>
+<li><strong>Retry</strong>: fix the cause first; the next sync runs the stage again.</li>
+<li><strong>Mark Resolved</strong>: you handled it by hand; the sync leaves the row alone. <strong>Reopen</strong> undoes it.</li>
+<li><strong>Open in Shopify</strong>, <strong>Return Order</strong>, <strong>Credit Memo</strong>: navigation.</li>
+</ul>
+
+<h2>Common block reasons</h2>
+<table>
+<tr><th>Reason</th><th>What to do</th></tr>
+<tr><td>Quantity Exceeds Sold</td><td>The return has more than the order had. Correct the return in Shopify.</td></tr>
+<tr><td>Return Location Missing</td><td>Set Default Return Location on the Shop Card, then Retry.</td></tr>
+<tr><td>Partial Receipt</td><td>Receive the rest or reduce the line, then Retry.</td></tr>
+<tr><td>Document Missing</td><td>The return order was deleted. Handle by hand and Mark Resolved.</td></tr>
+<tr><td>Canceled In Shopify</td><td>The return was cancelled. Delete the return order if not needed.</td></tr>
+<tr><td>Foreign Refund Exists</td><td>Someone refunded in Shopify by hand. Check the amounts and Mark Resolved.</td></tr>
+<tr><td>Stalled</td><td>The row waited longer than Return Stale After Days. Check the receipt or credit memo.</td></tr>
+</table>
+
+<h2>Permissions</h2>
+<p><code>Shpfy Returns BYL</code> and sales document rights for the user who runs the sync and for the pipeline operators.
+Users who post return receipts also need <code>Shpfy Returns BYL</code> for the immediate refund; without it the next sync
+sends the request.</p>
+
+<h2>Known limits</h2>
+<ul>
+<li>Shop currency only; orders in another presentment currency are refused.</li>
+<li>Releasing the return order from the app skips approval workflows.</li>
+<li>Exchanges, return reason mapping and restocking fees are not handled.</li>
+</ul>
+
+</div></main>
+<footer><div class="wrap">Bylink is a product line of Bylov Consulting (Bylov Consulting ApS), <mark class="todo">[street address, postcode, city, Denmark]</mark>. CVR <mark class="todo">[CVR no.]</mark>.
+<a href="../privacy.html">Privacy statement</a> · <a href="../terms.html">License terms</a> · <a href="../support.html">Support</a><br>
+Shopify is a trademark of Shopify Inc. Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Bylink is not affiliated with or endorsed by either.</div></footer>
+</body>
+</html>

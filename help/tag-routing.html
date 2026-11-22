@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag Order Routing | Bylink</title>
+<link rel="icon" type="image/png" href="../assets/logo-216.png">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header><div class="wrap">
+<img src="../assets/logo-216.png" alt="">
+<a class="brand" href="../index.html">Bylink</a>
+<nav><a href="../index.html#apps">Apps</a><a href="../help/index.html">Help</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+
+
+<h1>Bylink Tag Order Routing for Shopify</h1>
+<p class="lead">Sends Shopify orders with a given tag to a fixed Business Central customer, per ship-to country.</p>
+
+<h2>What it does</h2>
+<p>Each shop keeps a list of rules: <strong>order tag + ship-to country → customer</strong>. An order with one of those tags is
+sold to and billed to the rule's customer instead of the customer the connector would map. Use it for orders that belong to
+a fixed account, such as a partner shop or a wholesale channel, where the customer must be the country-specific one so that
+VAT and prices come out right. Nothing is sent to Shopify.</p>
+
+<h2>Setup</h2>
+<ol>
+<li>On the Shopify Shop Card, Feature Flags part, switch on <strong>Shopify Tag Order Routing</strong> for the shop.</li>
+<li>In the <strong>Tag Routing Rules</strong> part, add one line per rule:
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Shopify Tag</td><td>The order tag. Stored in upper case; matching ignores case.</td></tr>
+<tr><td>Ship-to Country Code</td><td>The two-letter ISO code as Shopify sends it, for example <code>DK</code>.</td></tr>
+<tr><td>Customer No.</td><td>The customer the order goes to.</td></tr>
+</table></li>
+</ol>
+<p>Whole tags only, no wildcards. Only tags on the order count, not product tags.</p>
+
+<h2>What happens</h2>
+<table>
+<tr><th>Case</th><th>Result</th></tr>
+<tr><td>One customer for the order's country</td><td>Sell-to and Bill-to Customer No. are set to the rule's customer.</td></tr>
+<tr><td>No ship-to country, no rule for the country, or two different customers for it</td><td>The order is flagged with a
+<code>[Tag Routing]</code> error and no sales document is created until the rules are fixed. Other orders carry on.</td></tr>
+<tr><td>No routing tag on the order</td><td>Left to the Shopify Connector as usual.</td></tr>
+</table>
+<p>Routing runs again just before the sales document is created, so a rule added after import still applies.</p>
+
+<h2>Customer template conflict</h2>
+<p>A default customer for the same country in Shopify Customer Setup by Country/Region would overwrite the routed customer.
+The app refuses the document in that case, with an error that names the customer template. Remove one of the two.</p>
+
+<h2>For developers</h2>
+<p>Codeunit <code>Shpfy Tag Routing BYL</code> publishes <code>OnBeforeRouteOrder(var OrderHeader; var Skip)</code> to leave an order
+to the connector, and <code>OnAfterRouteOrder(var OrderHeader; CustomerNo)</code> after an order was routed.</p>
+
+<h2>Permissions</h2>
+<p><code>Shpfy Tag Route BYL</code> to maintain rules. Routing itself works for the sync user without it.</p>
+
+<h2>Known limits</h2>
+<ul>
+<li>A tag removed in Shopify after the order was routed does not undo the route.</li>
+<li>An order that cannot be routed may still show a customer the connector mapped, but it gets no sales document.</li>
+</ul>
+
+</div></main>
+<footer><div class="wrap">Bylink is a product line of Bylov Consulting (Bylov Consulting ApS), <mark class="todo">[street address, postcode, city, Denmark]</mark>. CVR <mark class="todo">[CVR no.]</mark>.
+<a href="../privacy.html">Privacy statement</a> · <a href="../terms.html">License terms</a> · <a href="../support.html">Support</a><br>
+Shopify is a trademark of Shopify Inc. Microsoft, Dynamics 365 and Business Central are trademarks of the Microsoft group of companies. Bylink is not affiliated with or endorsed by either.</div></footer>
+</body>
+</html>
