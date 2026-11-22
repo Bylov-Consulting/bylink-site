@@ -21,25 +21,29 @@
 <h2>Requirements</h2>
 <ul>
 <li>Business Central online, version 28 or later, with Microsoft's Shopify Connector set up for your shop.</li>
-<li>A custom app in Shopify (Shopify admin, Settings, Apps and sales channels, Develop apps) with the Admin API access scopes
-the apps you use need. The scopes are listed on each app's page.</li>
+<li>For Order Sync, Return Handling and Pre-Orders: an app for your store created in Shopify, with the Admin API access
+scopes listed on each app's page. Tag Order Routing does not call Shopify and needs no app.</li>
 </ul>
 <h2>The two library apps</h2>
-<p>Every Bylink app installs two library apps with it. You do not buy them separately.</p>
+<p>The Bylink apps install these library apps with them, as needed. You do not buy them separately.</p>
 <h3>Bylink Shopify Admin API</h3>
-<p>Calls the Shopify Admin API (GraphQL) for the Bylink apps with your shop's own credentials. To set it up:</p>
+<p>Calls the Shopify Admin API (GraphQL) for Order Sync, Return Handling and Pre-Orders with your shop's own credentials.
+To set it up:</p>
 <ol>
-<li>In Shopify, create the custom app, grant the scopes, and install it on the shop.</li>
-<li>In Business Central, open the Shopify Shop Card and enter the Admin API credentials for the shop. They are kept in
-isolated storage.</li>
+<li>In Shopify, create an app for your store, grant it the scopes, install it on the store, and copy its Client ID and
+Client secret.</li>
+<li>In Business Central, open the Shopify Shop Card. In the Shopify Admin API group, check the Shopify URL, choose
+<strong>Manage API Credentials</strong>, and enter the Client ID and Client Secret. They are kept in isolated storage.
+<strong>Test API Connection</strong> on the Shop Card checks them.</li>
 <li>Where an app writes metafields, create the metafield definitions in Shopify and add the matching rows to the
 Shopify Metafield Definitions page in Business Central (same namespace, key and owner type, Enabled).</li>
 </ol>
-<p>Every call is written to the Shopify API Log in Business Central, where administrators can see request, response and status.</p>
+<p>Every call is written to the <strong>Shopify API Log</strong> (an action on the Shop Card), where administrators can see request, response and status.</p>
 <p>Permission set: <code>Shpfy Admin API BYL</code> for whoever sets up credentials and metafield definitions.</p>
 <h3>Bylink Shopify Feature Flags</h3>
-<p>Adds a Feature Flags part to the Shopify Shop Card. Each Bylink feature is switched on there, per shop. An installed app
-does nothing for a shop until its flag is on, so you can roll out one shop at a time.</p>
+<p>Adds a <strong>Shopify Feature Flags</strong> part to the Shopify Shop Card. Order Sync, Pre-Orders and Tag Order Routing
+are switched on there, per shop; Return Handling is switched on with a field on the Shop Card instead. An installed app does
+nothing for a shop until it is switched on, so you can roll out one shop at a time.</p>
 <p>Users who add or delete shops need <code>Shpfy Feat Flags BYL</code>.</p>
 <h2>Before production</h2>
 <p>Try every feature in a sandbox copy of your production environment against a development or test store in Shopify first.

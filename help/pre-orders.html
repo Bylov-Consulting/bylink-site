@@ -27,7 +27,7 @@ expected inside the window. You can also set or clear the status by hand.</p>
 
 <h2>Setup</h2>
 <ol>
-<li>Shopify custom app scope: <code>write_products</code>.</li>
+<li>Shopify app scope: <code>write_products</code>.</li>
 <li>In Shopify, create two product metafield definitions: a boolean (pre-order active) and a date (pre-order date), or an
 integer if you show week numbers.</li>
 <li>In Business Central, add both to Shopify Metafield Definitions for the shop, owner type Product, Enabled.</li>
@@ -35,7 +35,7 @@ integer if you show week numbers.</li>
 Changing Pre-Order Value sends every product again in the new format.</li>
 <li>Open <strong>Shopify Pre-Order Setup</strong> and set Inventory Threshold, Window Days, Buffer Days, Max Sync Attempts and an
 optional Location Filter.</li>
-<li>Switch on <strong>PreOrder</strong> in the Feature Flags part. This creates an hourly job queue entry. Keep it On Hold until the
+<li>Switch on <strong>Shopify Pre-Orders</strong> in the Shopify Feature Flags part. This creates an hourly job queue entry. Keep it On Hold until the
 go-live check passes.</li>
 </ol>
 
@@ -44,7 +44,7 @@ go-live check passes.</li>
 once. A manual status stays until someone clears it; the job does not override it.</p>
 
 <h2>When a push fails</h2>
-<p>The job carries on with the other items. The Pushes page shows Status, Attempt Count and Last Error; <strong>Retry
+<p>The job carries on with the other items. The <strong>Shopify Pre-Order Pushes</strong> page shows Status, Attempt Count and Last Error; <strong>Retry
 Failed</strong> sends failed pushes again at the next run.</p>
 
 <h2>Permissions</h2>
