@@ -30,7 +30,7 @@ Pending, and the next run of Sync Orders from Shopify rebuilds the sales order u
 
 <h2>Setup per shop</h2>
 <ol>
-<li>Shopify custom app scopes: <code>read_orders</code>, <code>write_orders</code>. Admin API credentials set up (see
+<li>Shopify app scopes: <code>read_orders</code>, <code>write_orders</code>. Admin API credentials set up (see
 <a href="index.html">Getting started</a>).</li>
 <li>Create an order metafield definition in Shopify for the sync status, and the matching row in Shopify Metafield
 Definitions (owner type Order, Enabled).</li>
@@ -39,7 +39,7 @@ while reporting is not configured.</li>
 <li>Set <strong>Edit Notify Email</strong> to receive an e-mail for blocked edits. Leave it blank for no e-mail. An e-mail
 account must be set up for the Default scenario.</li>
 <li>Optional: <strong>Address Read Tag</strong>. When set, the shipping address is read again only for orders with that tag.</li>
-<li>Switch on <strong>Shopify Order Cancellation</strong> and <strong>Shopify Order Edit Sync</strong> in the Feature Flags part.</li>
+<li>Switch on <strong>Shopify Order Cancellation</strong> and <strong>Shopify Order Edit Sync</strong> in the Shopify Feature Flags part.</li>
 <li>After switching on edit sync, run <strong>Store Order Edit Baselines</strong> on the Shop Card once, so that open orders
 created earlier are compared from then on.</li>
 <li>Before switching on cancellation, look for orders that are already cancelled in Shopify but still have a sales order.

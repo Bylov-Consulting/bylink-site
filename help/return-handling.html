@@ -28,11 +28,12 @@ error and a hint. Business Central never sends a refund amount; Shopify computes
 <p>Refunds without a return go to the Shopify Connector's own Auto Create Credit Memo process.</p>
 
 <h2>Setup</h2>
-<p>Shopify custom app scopes: <code>read_returns</code>, <code>write_returns</code>, plus the order scopes the connector uses.
+<p>Shopify app scopes: <code>read_returns</code>, <code>write_returns</code>, plus the order scopes the connector uses.
+The shop's Shopify API version must be 2026-07 or later.
 On the Shopify Shop Card:</p>
 <table>
 <tr><th>Field</th><th>Value</th></tr>
-<tr><td>Return and Refund Process</td><td><strong>Return Order BYL</strong>. Any other value and the app does nothing for the shop.</td></tr>
+<tr><td>Return and Refund Process</td><td><strong>Return Order with Shopify Refund</strong>. Any other value and the app does nothing for the shop.</td></tr>
 <tr><td>Default Return Location</td><td>The location that receives returns. Blank blocks every return.</td></tr>
 <tr><td>Return Import From Date</td><td>Your go-live date. Returns on older orders are skipped.</td></tr>
 <tr><td>Return Stale After Days</td><td>Days a row may wait for a refund or credit memo before it is flagged Stalled. 0 means 7.</td></tr>
@@ -43,7 +44,7 @@ On the Shopify Shop Card:</p>
 
 <h2>Daily work</h2>
 <p>Sync Orders from Shopify must keep running: each run creates return orders, flags stalled rows and turns refunds into
-credit memos. Posting a return receipt asks Shopify for the refund straight away. On the pipeline page:</p>
+credit memos. Posting a return receipt asks Shopify for the refund straight away. On the Shopify Return Pipeline page (action Return Pipeline on the Shop Card):</p>
 <ul>
 <li><strong>Retry</strong>: fix the cause first; the next sync runs the stage again.</li>
 <li><strong>Mark Resolved</strong>: you handled it by hand; the sync leaves the row alone. <strong>Reopen</strong> undoes it.</li>
