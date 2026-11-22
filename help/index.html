@@ -21,8 +21,8 @@
 <h2>Requirements</h2>
 <ul>
 <li>Business Central online, version 28 or later, with Microsoft's Shopify Connector set up for your shop.</li>
-<li>For Order Sync, Return Handling and Pre-Orders: an app for your store created in Shopify, with the Admin API access
-scopes listed on each app's page. Tag Order Routing does not call Shopify and needs no app.</li>
+<li>For Order Sync, Return Handling and Pre-Orders: a custom app in Shopify, with the Admin API access scopes listed on
+each app's page. Tag Order Routing does not call Shopify and needs no app.</li>
 </ul>
 <h2>The two library apps</h2>
 <p>The Bylink apps install these library apps with them, as needed. You do not buy them separately.</p>
@@ -30,8 +30,7 @@ scopes listed on each app's page. Tag Order Routing does not call Shopify and ne
 <p>Calls the Shopify Admin API (GraphQL) for Order Sync, Return Handling and Pre-Orders with your shop's own credentials.
 To set it up:</p>
 <ol>
-<li>In Shopify, create an app for your store, grant it the scopes, install it on the store, and copy its Client ID and
-Client secret.</li>
+<li>Create a custom app in Shopify with the scopes the apps need, and note its Client ID and Client secret.</li>
 <li>In Business Central, open the Shopify Shop Card. In the Shopify Admin API group, check the Shopify URL, choose
 <strong>Manage API Credentials</strong>, and enter the Client ID and Client Secret. They are kept in isolated storage.
 <strong>Test API Connection</strong> on the Shop Card checks them.</li>
